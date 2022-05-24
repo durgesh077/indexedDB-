@@ -1,0 +1,36 @@
+<html>
+
+<head>
+
+    <script src="model.js"></script>
+</head>
+
+<body>
+    <img src='#' id="myimg" alt="no Img">
+</body>
+<script>
+    //see the script to get understand how to access the uploaded image
+    let cdb = new webDB("collegeDB")//collegeDb is database and no need to specify field value
+    function showImg() {
+        try {
+            cdb.getData('roll_no', "" + 19).then(data => {
+                //data is our data 
+                console.log(data)
+                //we need files stored so 
+                let img = data[0].files[0]
+                // now we have to show img from given file
+                //first we have to make a urlobject
+                let url = URL.createObjectURL(img);
+                //url contain the url
+                console.log(url)
+                let myimg = document.getElementById('myimg')
+                myimg.src = url
+            })
+        } catch {
+            setTimeout(showImg, 5000);
+        }
+    }
+    showImg()
+</script>
+
+</html>
